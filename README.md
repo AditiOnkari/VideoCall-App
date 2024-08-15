@@ -74,7 +74,7 @@ function VideoCallApp() {
     setIsRecording(true);
   };
 
-  const stopRecording = () => {
+  const stopRecording = () => {  
     mediaRecorder.stop();
     setIsRecording(false);
 
