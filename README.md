@@ -20,7 +20,7 @@ function VideoCallApp() {
       if (hours >= 18 && hours < 24) {
         setIsCallEnabled(true);
       } else {
-        setIsCallEnabled(false);
+        setIsCallEnabled(false); 
       }
     };
 
