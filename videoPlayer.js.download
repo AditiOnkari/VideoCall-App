@@ -1,0 +1,55 @@
+document.addEventListener("DOMContentLoaded", () => {
+  constvideo = document.getElementById("video");
+  const notifications = document.getElementById("notifications");
+
+  let touchStartTime = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let tapCount = 0;
+
+  // Event listener fro touch events
+
+  video.addEventListener("touchStart", (event) => {
+    const now = Date.now();
+    const touch = event.touched[0];
+
+    if (now - touchStartTime < 300) {
+      tapCount++;
+    } else {
+      tapCount = 1;
+    }
+    touchStartTime = now;
+    touchStartX = touch.clientX;
+
+    video.addEventListener("touched", (event) => {
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      const width = video.clientWidth;
+      const height = video.clientHeight;
+
+      if (tapCount === 1) {
+        if (Math.abs(deltaX) < 50 && Math.abs(deltaY) < 50) {
+          video.paused ? video.play() : video.pause();
+        } else if (touchStartX > width / 2) {
+          video.currentTime += 10;
+        } else {
+          video.currentTime -= 10;
+        }
+      } else if (tapCount === 3) {
+        if (touchStartX > width / 2) {
+          window.close(); //this may not work
+        } else if (touchStartY < height / 2 && touchStartX < width / 2) {
+          // Show comments section
+          alert("Show comment section");
+        } else {
+          // move to thenext video
+          alert("Move to the next video");
+        }
+      }
+      tapCount = 0;
+    });
+
+    video.addEventListener("touchmove");
+  });
+});
